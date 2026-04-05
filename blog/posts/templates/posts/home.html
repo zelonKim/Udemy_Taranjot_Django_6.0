@@ -31,9 +31,9 @@
         {% endif %}
 
         <a href="http://127.0.0.1:8000/posts/{{ post.id }}">
-          <h1>{{forloop.counter}} - {{ post.title }}</h1>
+          <h1>{{forloop.counter}} - {{ post.post_title }}</h1>
         </a>
-        <p>{{ post.content | truncatewords:3 }}</p>
+        <p>{{ post.post_content | truncatewords:3 }}</p>
       {% endfor %} 
       
       {% elif posts|length == 0 %}

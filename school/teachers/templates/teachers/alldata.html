@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    {% for teacher in alldata %}
+    <div>
+      <a href="{% url 'update' teacher.id %}"> {{ teacher.name }} </a>
+      <form action="{% url 'delete' teacher.id%}" method="POST">
+        {% csrf_token %}
+        <button type="submit">삭제</button>
+      </form>
+    </div>
+    {% endfor %}
+  </body>
+</html>

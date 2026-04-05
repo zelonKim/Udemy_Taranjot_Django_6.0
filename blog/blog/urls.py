@@ -7,3 +7,7 @@ urlpatterns = [
     path('posts/', include('posts.urls')),
     path('<int:id>/', views.shortcut),
 ]
+
+admin.site.site_header = 'My Blog'
+admin.site.index_title = 'The Blog'
+

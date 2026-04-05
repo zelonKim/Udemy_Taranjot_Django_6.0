@@ -16,9 +16,6 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-print("베이스 디렉터리:" , BASE_DIR / "templates")
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
@@ -26,7 +23,7 @@ print("베이스 디렉터리:" , BASE_DIR / "templates")
 SECRET_KEY = 'django-insecure-vc@j)y(kx15cs_!9j9ro-b$1t$oqyzwgdat^6io9gi08vp16)d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -66,7 +63,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'posts.context_processors.categories', #
+                'posts.context_processors.categories', 
             ],
         },
     },

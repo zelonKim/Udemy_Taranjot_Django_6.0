@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect, Http404
 from django.urls import reverse
+from .models import Post
+from django.shortcuts import get_object_or_404
 
 posts = [
     {
@@ -28,12 +30,13 @@ categories = [
 ]
 
 
-# posts = []
 
 
 
 def home(request):
-    return render(request, 'posts/home.html', {'posts': posts, 'username': 'zelonKim', 'categories':categories})
+    all_posts = Post.objects.all()
+    print(all_posts)
+    return render(request, 'posts/home.html', {'posts': all_posts, 'username': 'zelonKim', 'categories':categories})
 
 
 
@@ -44,24 +47,16 @@ def home(request):
 
 
 
-
 def post(request, id):
-    valid_id = False
+    # try:
+    #     post = Post.objects.get(id=id)
+    # except:
+    #     raise Http404()
     
-    for post in posts:
-        if post['id'] == id:
-            post_dict = post
-            valid_id = True
-            break
-    if valid_id:
-        html = f'''
-            <h1>{post_dict['title']}</h1>
-            <p>{post_dict['content']}</p>
-        '''
-        return render(request, 'posts/post.html', {'post_dict': post_dict})
-    else:
-        # return HttpResponseNotFound("Post not available 😅")
-        raise Http404()
+    post = get_object_or_404(Post, id=id)
+    
+    return render(request, 'posts/post.html', {'post_dict': post})
+
 
 
 
@@ -81,7 +76,7 @@ def post(request, id):
 #         return HttpResponse(html)
 #     else:
 #         return HttpResponseNotFound("Post not available 😅")
-    
+#         raise Http404()
     
     
 def shortcut(request, id):
