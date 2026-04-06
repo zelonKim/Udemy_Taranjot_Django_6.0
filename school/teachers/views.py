@@ -32,6 +32,7 @@ def thank(request):
 
 def data(request):
     alldata = Teacher.objects.all()
+    print(request.COOKIES['name'])
     return render(request, 'teachers/alldata.html', {'alldata': alldata})
 
 
