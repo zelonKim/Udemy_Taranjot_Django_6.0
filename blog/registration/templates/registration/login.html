@@ -1,0 +1,11 @@
+<h1>Login Registration App</h1>
+
+<form action="" method="POST">
+  {% csrf_token %} {{ form }}
+  <input type="submit" value="로그인" />
+</form>
+
+<form action="{% url 'logout' %}" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="로그아웃" />
+</form>
