@@ -1,46 +1,52 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'base.html' %} {% load static %} {% block body %} {% block cate %}
+<h1>Categories</h1>
+<ul>
+  {% for category in categories %}
+  <li>{{ category }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}
 
+<h1>{{username | capfirst | truncatechars:5 }}</h1>
 
-{% block body %}
+{% if posts %}
+<h1>All posts are Available</h1>
 
+{% for post in posts %} {% if forloop.first %}
+<h1>First Loop</h1>
+{% endif %} {% if forloop.last %}
+<h1>Last Loop</h1>
+{% endif %}
 
+<a href="http://127.0.0.1:8000/posts/{{ post.id }}">
+  <h1>{{forloop.counter}} - {{ post.post_title }}</h1>
+</a>
+<p>{{ post.post_content | truncatewords:3 }}</p>
 
-    {% block cate %}
-      <h1>Categories</h1>
-      <ul>
-        {% for category in categories %}
-          <li>{{ category }}</li>
-        {% endfor %}
-      </ul>
-    {% endblock %}
+{% endfor %} {% elif posts|length == 0 %}
+<h1>Inside elif post</h1>
 
-      <h1>{{username | capfirst | truncatechars:5 }}</h1>
+{% else %}
+<h1>No posts</h1>
 
-      {% if posts %}
-        <h1>All posts are Available</h1>
+{% endif %}
 
-      {% for post in posts %} 
-      
-        {% if forloop.first %}
-          <h1>First Loop</h1>
-        {% endif %} 
-        
-        {% if forloop.last %}
-        <h1>Last Loop</h1>
+<div class="container d-flex justify-content-center">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      {% if posts.has_previous %}
+      <li class="page-item"><a class="page-link" href="?p={{posts.previous_page_number}}">Previous</a></li>
+      <li class="page-item"><a class="page-link" href="?p={{posts.previous_page_number}}">{{posts.previous_page_number}}</a></li>
         {% endif %}
 
-        <a href="http://127.0.0.1:8000/posts/{{ post.id }}">
-          <h1>{{forloop.counter}} - {{ post.post_title }}</h1>
-        </a>
-        <p>{{ post.post_content | truncatewords:3 }}</p>
-      {% endfor %} 
-      
-      {% elif posts|length == 0 %}
-      <h1>Inside elif post</h1>
+      <li class="page-item"><a class="page-link" href="#">{{posts.number}}</a></li>
 
-      {% else %}
-      <h1>No posts</h1>
-
+       {% if posts.has_next %}
+      <li class="page-item"><a class="page-link" href="?p={{posts.next_page_number}}">{{posts.next_page_number}}</a></li>
+        <li class="page-item"><a class="page-link" href="?p={{posts.next_page_number}}">Next</a></li>
       {% endif %}
+    </ul>
+  </nav>
+</div>
+
 {% endblock %}

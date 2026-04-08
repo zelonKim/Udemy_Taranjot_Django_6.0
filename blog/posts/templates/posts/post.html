@@ -9,6 +9,35 @@
 
 {% block body %}
     <h1>{{post_dict.post_title}}</h1>
+
+  <div class="d-flex justify-content-center align-items-center flex-wrap">
+    {% for tag in post_dict.tags.all %}
+      <a href="{% url 'tag' tag.id %}" class="btn btn-dark  text-light m-2">
+      #{{ tag }}
+      </a>
+    {% endfor %}
+  </div>
+
     <p>{{post_dict.post_content}}</p>
-    <p> 작성자: {{writer}}</p>
+    <h2>Comments</h2>
+    {% if user.is_authenticated %}
+    <form method='POST'>
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="btn btn-primary">제출</button>
+    </form>
+    {% else %}
+    <h2 class="bg-danger">Login To Comment</h2>
+     {% endif %}
+
+     <div class="card">
+        {% for comment in comments %}
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{comment.user}}</h5>
+              <p class="card-text">{{comment.comment}}</p>
+            </div>
+          </div>
+        {% endfor %}
+     </div>
 {% endblock body %}
