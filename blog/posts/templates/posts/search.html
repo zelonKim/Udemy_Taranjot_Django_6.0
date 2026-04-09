@@ -1,0 +1,28 @@
+{% extends "base.html" %} 
+
+{% block body %}
+    <h1>검색 결과</h1>
+    <div class="row">
+        {% for post in posts %}
+            {% include "posts/includes/postcard.html" %}
+        {% empty %}
+            <h3> 검색결과가 존재하지 않습니다.</h3>
+        {% endfor %}
+
+        {% if total > 4 %}
+            <ul class="pagination">
+            {% if posts.has_previous %}
+            <li class="page-item"><a class="page-link" href="?p={{posts.previous_page_number}}&query={{query}}">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="?p={{posts.previous_page_number}}&query={{query}}">{{posts.previous_page_number}}</a></li>
+                {% endif %}
+
+            <li class="page-item"><a class="page-link" href="#">{{posts.number}}</a></li>
+
+            {% if posts.has_next %}
+            <li class="page-item"><a class="page-link" href="?p={{posts.next_page_number}}&query={{query}}">{{posts.next_page_number}}</a></li>
+                <li class="page-item"><a class="page-link" href="?p={{posts.next_page_number}}&query={{query}}">Next</a></li>
+            {% endif %}
+        {% endif %}
+    </ul>
+    </div>
+{% endblock %}

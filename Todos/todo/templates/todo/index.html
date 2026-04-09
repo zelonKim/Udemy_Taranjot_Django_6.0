@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo Home</title>
+    <style>
+      .btn {
+        padding: 5px 10px;
+        background-color: red;
+        border: 2px solid black;
+        color: white;
+        margin: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Index</h1>
+    <ul>
+      {% for todo in todos %}
+      <a href="{% url 'todo' todo.id %}" style="margin-top: 20px">
+        <li>{{todo.todo}}</li>
+      </a>
+      <br />
+      <a href="{% url 'up' todo.id %}" class="btn">Update</a>
+      <a href="{% url 'delete' todo.id %}" class="btn">Delete</a>
+      {% endfor %} {{ name }}
+    </ul>
+  </body>
+</html>
